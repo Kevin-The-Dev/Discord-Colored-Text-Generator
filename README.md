@@ -6,8 +6,7 @@ A browser-based tool to create colored Discord messages using ANSI color codes, 
 
 ## Live Demo
 
-Check out the live project here: [Live Project Link](#) *(Replace with your actual deployment URL, e.g., `https://your-username.github.io/discord-colored-text-generator`)*
-
+Check out the live project here: [[Live Project Link](https://discord-colored-text-generator-bykevin.vercel.app/)]
 ---
 
 ## Features
