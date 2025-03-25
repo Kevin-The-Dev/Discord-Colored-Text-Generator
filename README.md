@@ -46,10 +46,6 @@ Check out the live project here: [[Live Project Link](https://discord-colored-te
    - **Color Buttons**:
      - FG buttons (ansi-30 to ansi-37) and BG buttons (ansi-40 to ansi-47) apply corresponding ANSI classes to selected text.
      - Tooltips show color names on hover, adjusting position to stay within the viewport.
-   - **Copy Functionality**:
-     - `nodesToANSI` recursively converts DOM nodes to ANSI escape codes (e.g., `\x1b[31m` for red FG, `\x1b[45m` for blurple BG).
-     - Output is wrapped in ```ansi``` code blocks and copied via `navigator.clipboard.writeText`.
-     - Displays rotating messages ("Copied!", "Snagged!", etc.) on each click, with a green confirmation for 2 seconds.
 
 ---
 
