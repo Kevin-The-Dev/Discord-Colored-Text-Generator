@@ -57,4 +57,6 @@ Check out the live project here: [[Live Project Link](https://discord-colored-te
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/discord-colored-text-generator.git
+   git clone https://github.com/Kevin-The-Dev/Discord-Colored-Text-Generator.git
+
+   https://github.com/Kevin-The-Dev/Discord-Colored-Text-Generator.git
