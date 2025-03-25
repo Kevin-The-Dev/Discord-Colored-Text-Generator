@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Rebane's Discord Colored Text Generator</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Rebane's Discord Colored Text Generator">
+    <meta name="author" content="rebane2001">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- For responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .ansi-1 { font-weight: 700; text-decoration: none; }
+        .ansi-4 { font-weight: 500; text-decoration: underline; }
+        .ansi-30 { color: #4f545c; }
+        .ansi-31 { color: #dc322f; }
+        .ansi-32 { color: #859900; }
+        .ansi-33 { color: #b58900; }
+        .ansi-34 { color: #268bd2; }
+        .ansi-35 { color: #d33682; }
+        .ansi-36 { color: #2aa198; }
+        .ansi-37 { color: #ffffff; }
+        .ansi-30-bg { background-color: #4f545c; }
+        .ansi-31-bg { background-color: #dc322f; }
+        .ansi-32-bg { background-color: #859900; }
+        .ansi-33-bg { background-color: #b58900; }
+        .ansi-34-bg { background-color: #268bd2; }
+        .ansi-35-bg { background-color: #d33682; }
+        .ansi-36-bg { background-color: #2aa198; }
+        .ansi-37-bg { background-color: #ffffff; }
+        .ansi-40 { background-color: #002b36; }
+        .ansi-41 { background-color: #cb4b16; }
+        .ansi-42 { background-color: #586e75; }
+        .ansi-43 { background-color: #657b83; }
+        .ansi-44 { background-color: #839496; }
+        .ansi-45 { background-color: #6c71c4; }
+        .ansi-46 { background-color: #93a1a1; }
+        .ansi-47 { background-color: #fdf6e3; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2F3136 0%, #36393F 100%);
+        }
+        .button-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .textarea-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen flex flex-col">
+    <header class="bg-gray-900/90 backdrop-blur-sm py-4 sticky top-0 z-10">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center tracking-tight px-4">
+            Rebane's Discord <span class="text-[#5865F2]">Colored</span> Text Generator
+        </h1>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 py-8 flex-grow">
+        <section class="bg-gray-800/80 backdrop-blur-md rounded-xl p-6 mb-8 shadow-lg">
+            <h3 class="text-xl sm:text-2xl font-bold mb-4 text-gray-100">About</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">
+                This is a simple app that creates colored Discord messages using the ANSI color codes available on the latest Discord desktop versions.
+            </p>
+            <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                To use this, write your text, select parts of it and assign colors to them, then copy it using the button below, and send it in a Discord message.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-100">Create Your Text</h2>
+            
+            <div class="flex flex-wrap gap-3 justify-center mb-6">
+                <button data-ansi="0" class="style-button bg-gray-700 hover:bg-gray-600 text-white px-4 sm:px-5 py-2 rounded-lg button-shadow transition-all duration-200 text-sm sm:text-base">Reset All</button>
+                <button data-ansi="1" class="style-button bg-gray-700 hover:bg-gray-600 text-white px-4 sm:px-5 py-2 rounded-lg button-shadow ansi-1 transition-all duration-200 text-sm sm:text-base">Bold</button>
+                <button data-ansi="4" class="style-button bg-gray-700 hover:bg-gray-600 text-white px-4 sm:px-5 py-2 rounded-lg button-shadow ansi-4 transition-all duration-200 text-sm sm:text-base">Line</button>
+                <button id="clear-btn" class="bg-red-700 hover:bg-red-600 text-white px-4 sm:px-5 py-2 rounded-lg button-shadow transition-all duration-200 text-sm sm:text-base">Clear</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 max-w-4xl mx-auto">
+                <div class="bg-gray-800/50 p-4 rounded-lg shadow-md">
+                    <strong class="block text-center text-gray-200 mb-2 text-sm sm:text-base">Foreground (FG)</strong>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-3">
+                        <button data-ansi="30" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-30-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="31" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-31-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="32" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-32-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="33" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-33-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="34" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-34-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="35" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-35-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="36" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-36-bg hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="37" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-37-bg hover:scale-110 transition-transform duration-150"></button>
+                    </div>
+                </div>
+                <div class="bg-gray-800/50 p-4 rounded-lg shadow-md">
+                    <strong class="block text-center text-gray-200 mb-2 text-sm sm:text-base">Background (BG)</strong>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-3">
+                        <button data-ansi="40" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-40 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="41" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-41 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="42" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-42 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="43" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-43 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="44" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-44 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="45" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-45 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="46" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-46 hover:scale-110 transition-transform duration-150"></button>
+                        <button data-ansi="47" class="style-button w-8 h-8 sm:w-10 sm:h-10 rounded-full ansi-47 hover:scale-110 transition-transform duration-150"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-center">
+                <div id="textarea" contenteditable="true" 
+                    class="w-full bg-gray-900/90 text-gray-300 p-4 sm:p-6 rounded-xl border border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-[#5865F2] resize-both overflow-auto font-mono text-sm sm:text-base leading-relaxed min-h-[200px] sm:min-h-[250px] max-w-full sm:max-w-[700px] textarea-shadow">
+                    Welcome to <span class="ansi-33">Rebane</span>'s <span class="ansi-45"><span class="ansi-37">Discord</span></span> <span class="ansi-31">C</span><span class="ansi-32">o</span><span class="ansi-33">l</span><span class="ansi-34">o</span><span class="ansi-35">r</span><span class="ansi-36">e</span><span class="ansi-37">d</span> Text Generator!
+                </div>
+            </div>
+
+            <div class="text-center mt-6">
+                <button class="copy bg-[#5865F2] hover:bg-[#4752C4] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg button-shadow transition-all duration-200 font-semibold text-sm sm:text-base">
+                    Copy text as Discord formatted
+                </button>
+            </div>
+        </section>
+
+        <section class="bg-gray-800/80 backdrop-blur-md rounded-xl p-6 shadow-lg">
+            <h3 class="text-xl sm:text-2xl font-bold mb-4 text-gray-100">Source Code</h3>
+            <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                This app runs entirely in your browser and the source code is freely available on 
+                <a href="https://gist.github.com/rebane2001/07f2d8e80df053c70a1576d27eabe97c" class="text-[#00AFF4] hover:underline">GitHub</a>. 
+                Shout out to kkrypt0nn for 
+                <a href="https://gist.github.com/kkrypt0nn/a02506f3712ff2d1c8ca7c9e0aed7c06" class="text-[#00AFF4] hover:underline">this guide</a>.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900/90 backdrop-blur-sm py-4 text-center text-gray-400 text-xs sm:text-sm">
+        This is an unofficial tool, it is not made or endorsed by Discord.
+    </footer>
+
+    <div class="tooltip hidden fixed bg-green-600/90 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg shadow-md pointer-events-none z-50 transition-opacity duration-200 text-xs sm:text-sm">Tooltip</div>
+
+    <script type="text/javascript">
+        const textarea = document.querySelector("#textarea");
+        const copybtn = document.querySelector(".copy");
+        const clearBtn = document.querySelector("#clear-btn");
+        const tooltip = document.querySelector(".tooltip");
+
+        const tooltipTexts = {
+            "30": "Dark Gray (33%)", "31": "Red", "32": "Yellowish Green", "33": "Gold",
+            "34": "Light Blue", "35": "Pink", "36": "Teal", "37": "White",
+            "40": "Blueish Black", "41": "Rust Brown", "42": "Gray (40%)", "43": "Gray (45%)",
+            "44": "Light Gray (55%)", "45": "Blurple", "46": "Light Gray (60%)", "47": "Cream White",
+        };
+
+        textarea.oninput = () => {
+            const base = textarea.innerHTML.replace(/<(\/?(br|span|span class="ansi-[0-9]*"))>/g, "[$1]");
+            if (base.includes("<") || base.includes(">")) 
+                textarea.innerHTML = base.replace(/<.*?>/g, "").replace(/[<>]/g, "").replace(/\[(\/?(br|span|span class="ansi-[0-9]*"))\]/g, "<$1>");
+        };
+
+        document.addEventListener('keydown', event => {
+            if (event.target === textarea && event.key === 'Enter') {
+                document.execCommand('insertLineBreak');
+                event.preventDefault();
+            }
+        });
+
+        clearBtn.onclick = () => {
+            textarea.innerHTML = "";
+        };
+
+        document.querySelectorAll(".style-button").forEach((btn) => {
+            btn.onclick = () => {
+                const selection = window.getSelection();
+                if (!selection.rangeCount) return;
+
+                if (btn.dataset.ansi === "0") {
+                    textarea.innerHTML = 'Welcome to <span class="ansi-33">Rebane</span>\'s <span class="ansi-45"><span class="ansi-37">Discord</span></span> <span class="ansi-31">C</span><span class="ansi-32">o</span><span class="ansi-33">l</span><span class="ansi-34">o</span><span class="ansi-35">r</span><span class="ansi-36">e</span><span class="ansi-37">d</span> Text Generator!';
+                    return;
+                }
+
+                const text = selection.toString();
+                if (!text) return;
+
+                const span = document.createElement("span");
+                span.innerText = text;
+                span.classList.add(`ansi-${btn.dataset.ansi}`);
+
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(span);
+
+                range.selectNodeContents(span);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            };
+
+            btn.onmouseenter = () => {
+                if (!(btn.dataset.ansi > 4)) return;
+                const rect = btn.getBoundingClientRect();
+                tooltip.classList.remove("hidden");
+                tooltip.innerText = tooltipTexts[btn.dataset.ansi];
+                const tooltipWidth = tooltip.offsetWidth;
+                let leftPos = rect.left - tooltipWidth / 2 + btn.clientWidth / 2;
+                if (leftPos < 0) leftPos = 8;
+                if (leftPos + tooltipWidth > window.innerWidth) leftPos = window.innerWidth - tooltipWidth - 8;
+                tooltip.style.top = `${rect.top - 48}px`;
+                tooltip.style.left = `${leftPos}px`;
+            };
+
+            btn.onmouseleave = () => {
+                tooltip.classList.add("hidden");
+            };
+        });
+
+        function nodesToANSI(nodes, states) {
+            let text = "";
+            for (const node of nodes) {
+                if (node.nodeType === 3) {
+                    text += node.textContent;
+                    continue;
+                }
+                if (node.nodeName === "BR") {
+                    text += "\n";
+                    continue;
+                }
+                const ansiCode = +(node.className.split("-")[1]);
+                const newState = Object.assign({}, states.at(-1));
+
+                if (ansiCode < 30) newState.st = ansiCode;
+                if (ansiCode >= 30 && ansiCode < 40) newState.fg = ansiCode;
+                if (ansiCode >= 40) newState.bg = ansiCode;
+
+                states.push(newState);
+                text += `\x1b[${newState.st};${(ansiCode >= 40) ? newState.bg : newState.fg}m`;
+                text += nodesToANSI(node.childNodes, states);
+                states.pop();
+                text += `\x1b[0m`;
+                if (states.at(-1).fg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).fg}m`;
+                if (states.at(-1).bg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).bg}m`;
+            }
+            return text;
+        }
+
+        let copyIndex = 0;
+        const copyMessages = [
+            "Copied!", "Snagged!", "Grabbed!", "Secured!", "Nabbed!",
+            "Taken!", "Clipped!", "Yoinked!", "Swiped!", "Lifted!"
+        ];
+        let copyTimeout = null;
+
+        copybtn.onclick = () => {
+            const content = textarea.childNodes.length ? nodesToANSI(textarea.childNodes, [{ fg: 2, bg: 2, st: 2 }]) : "";
+            const toCopy = content ? "```ansi\n" + content + "\n```" : "```ansi\nNothing to copy!\n```";
+            
+            navigator.clipboard.writeText(toCopy).then(() => {
+                if (copyTimeout) clearTimeout(copyTimeout);
+
+                copybtn.classList.remove("bg-[#5865F2]", "hover:bg-[#4752C4]");
+                copybtn.classList.add("bg-green-600");
+                copybtn.innerText = copyMessages[copyIndex];
+                copyIndex = (copyIndex + 1) % copyMessages.length;
+
+                copyTimeout = setTimeout(() => {
+                    copybtn.classList.remove("bg-green-600");
+                    copybtn.classList.add("bg-[#5865F2]", "hover:bg-[#4752C4]");
+                    copybtn.innerText = "Copy text as Discord formatted";
+                }, 2000);
+            }, (err) => {
+                console.error("Clipboard error:", err);
+                alert("Failed to copy. Here's the text:\n\n" + toCopy);
+            });
+        };
+    </script>
+</body>
+</html>
